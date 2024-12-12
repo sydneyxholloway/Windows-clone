@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Retro Windows Desktop</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+  <script src="/firebase.js"></script>
+</head>
+
+<body>
+
+    <!-- The video -->
+  <video autoplay muted loop id="myVideo">
+    <source src="/video/wallpaper.mp4" type="video/mp4">
+  </video>
+
+  <div id="desktop">
+    <!-- Icons -->
+    <div class="icon" onclick="openMyDocuments()">
+      <img src="/images/folder.png" alt="Folder">
+      <p>My Documents</p>
+    </div>
+    <div class="icon" onclick="openRecycleBin()">
+      <img src="https://cdn.pixabay.com/photo/2015/03/21/06/27/recycle-bin-683244_640.png" alt="Recycle Bin">
+      <p>Recycle Bin</p> 
+    </div>
+    <div class="icon" onclick="openChat()">
+        <img src="/images/chat.webp" alt="Chat" class="chat">
+        <p>Chat</p>
+
+    </div>
+    <div class="icon" onclick="openMusic()">
+        <img src="https://files.softicons.com/download/toolbar-icons/xp-artistic-icons-by-lokas-software/ico/002-music.ico" alt="Music">
+        <p>Gimme A Beat</p>
+      </div>
+      <!-- Media Player Icon -->
+<div class="icon" onclick="openMediaPlayer()">
+    <img src="/images/MP.ico" alt="Media Player Icon" width="50" height="50.2">
+    <p>Media Player</p>
+</div>
+
+  
+
+    <!-- Windows -->
+    <div id="window" class="window">
+        <div id="window" class="window" onmousedown="startDrag(event)"></div>
+      <div class="title-bar">
+        <span class="title">My Computer</span>
+        <button onclick="closeWindow()">X</button>
+      </div>
+      <div class="content">
+        <p>Welcome to My Computer!</p>
+      </div>
+    </div>
+
+
+    <!-- My Documents Window -->
+    <div id="myDocuments" class="my-documents" onmousedown="startDrag(event)">
+        <div class="title-bar">
+          <span class="title">My Documents</span>
+          <button onclick="closeMyDocuments()">X</button>
+        </div>
+        <div class="content">
+          <div class="file" onclick="openImage('/images/Space Girls.jpg')">
+            <img src="/images/Space Girls.jpg" alt="Image 1" style="width: 50px; height: 50px;">
+            <p>Space Girls</p>
+          </div>
+          <div class="file" onclick="openImage('/images/play.JPG')">
+            <img src="/images/play.JPG" alt="Image 2" style="width: 50px; height: 50px;">
+            <p>First Play</p>
+          </div>
+          <div class="file" onclick="openImage('/images/grad.jpg')">
+            <img src="/images/grad.jpg" alt="Image 3" style="width: 50px; height: 50px;">
+            <p>Graduation</p>
+          </div>
+          <!-- Add more images as needed -->
+        </div>
+      </div>
+
+      <!-- Recycle Bin Popup -->
+    <div id="recycleBin" class="recycle-bin" onmousedown="startDrag(event)">
+        <div class="title-bar">
+            <span class="title">Recycle Bin</span>
+            <button onclick="closeRecycleBin()">X</button>
+        </div>
+        <div class="content">
+            <p>Why are you snooping in my trash?</p>
+            <p>That's weird.</p>
+        </div>
+    </div>
+    
+
+ <!-- Chat Window -->
+<div id="chatWindow" class="chat-window" onmousedown="startDrag(event)">
+    <div class="title-bar">
+        <span class="title">Chat</span>
+        <button onclick="closeChat()">X</button>
+    </div>
+    <div class="chat-content" id="chatContent">
+        <p>Welcome to the chat!</p>
+        <div id="dataDisplay"></div>
+    </div>
+    <form class="container" id="contactForm">
+			<div class="card">
+				<div class="card-body">
+					<div class="form-group">
+						<label for="exampleFormControlInput1"></label>
+						<input type="text" class="form-control" id="message" placeholder="type your message">
+					</div>
+				</div>
+				<button type="submit" class="btn btn-primary">
+					Submit!
+				</button>
+			</div>
+		</form>
+
+</div>
+
+<div id="musicPopup" class="popup">
+    <div class="popup-content">
+      <span class="close" onclick="closeMusicPopup()">&times;</span>
+      <h2>Music Collection</h2>
+      <div class="cd-collection">
+        <div class="cd" onclick="playMusic('song1.mp3')" style="background-image: url('/images/PYT.jpeg');"></div>
+        <div class="cd" onclick="playMusic('song2.mp3')" style="background-image: url('/images/mind2cd.jpg');"></div>
+        <div class="cd" onclick="playMusic('song3.mp3')" style="background-image: url('/images/cassy3.jpg');"></div>
+      </div>
+    </div>
+</div>
+
+    <!-- Taskbar -->
+    <div id="taskbar">
+        <button onclick="openStartMenu()" class="start-button">Start</button>
+        <div id="start-menu" class="start-menu">
+          <ul>
+            <li><a href="about.html">About</a></li>
+            <li>Settings</li>
+            <li>Shut Down</li>
+          </ul>
+        </div>
+      </div>
+    </div> 
+
+ <!-- Media Player Popup -->
+<div id="mediaPlayerPopup" class="popup1">
+    <div class="popup1-content">
+        <span class="close" onclick="closeMediaPlayer()">&times;</span>
+        <div class="media-player-title-bar"></div>
+        <h2>Media Player</h2>
+        <div class="video-slider">
+            <button class="arrow left-arrow" onclick="prevVideo()">&#10094;</button>
+            <video id="videoElement" controls>
+                <source src="" type="video/mp4">
+            </video>
+
+            <button class="arrow right-arrow" onclick="nextVideo()">&#10095;</button>
+        </div>
+    </div>
+</div>
+
+<div class="right-image">
+    <img src="/images/logo.png" alt="Description of image">
+  </div>
+    
+  
+<script src="script.js"></script>
+</script>
+<div id="online-world">
+
+</div>
+<div id="offline-world" class="showPdf">
+  <h1>offline world</h1>
+  <p>this is where we get some quiet online times</p>
+  <p>at the very minimum, you want to use this script to develop a translation of your website which, in traditional web dev, would be some boring user manual tech documentation. You'd describe in detail what happens when you enter the homepage, click here, click there, etc...You can write a descriptive UX overview, but you could also add a new layer by explaining what happens in the backend when data has been sent/retrieved.</p>
+  <p>I think we're more interesting than that. We could use this space to explore a new creative layer for our website -- just like some of us did for the mobile-version in Project 1, in that it didn't look at all like its desktop parent.</p>
+  <p>think about: </p>
+  <p>what does it mean to be offline today?</p>
+  <p>who does it and why? when?</p>
+  <p>imagine a person is stuck on mt whitney and desparate to see some realtime data</p>
+  <p>think about the things that shut down when user goes offline...notifications, health data tracking...</p>
+  <p>social media platform icons go black&white when offline, color when online...</p>
+  <p>which computer features don't depend on the wifi and become crucial in the context of turned off internet?</p>
+  <p>what happens on your browser when you go offline?</p>
+  <p>how are you going to let your users know that they can go offline? Do they have to? Why? Do you have to build a reason for them to go offline?</p>
+  <p>if offline mode always the same? is it always random?</p>
+  <p>is it text-heavy or visual?</p>
+  <p>will the users go back to your online website? are they trapped?</p>
+</div>
+<script src="offline-script.js"></script>
+  </body>
+  </html>
